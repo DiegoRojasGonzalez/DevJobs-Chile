@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function App() {
+function Menu() {
   const [theme, setTheme] = useState(() => {
     const storedTheme = localStorage.getItem("theme");
     if (storedTheme) {
@@ -31,9 +31,9 @@ function App() {
         className="bg-slate-200 px-4 py-2 rounded hover:bg-slate-300 dark:bg-slate-950 dark:text-white dark:hover:bg-slate-900"
         onClick={handleChangeTheme}
       >
-        Change Theme
+        Cambiar tema desde menu.jsx
       </button>
     </div>
   );
 }
-export default App;
+export default Menu;
