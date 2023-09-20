@@ -45,7 +45,7 @@ function App() {
             <span className="text-sm font-medium">Abrir Menú</span>
           </button>
         </div>
-
+        
         {isMenuOpen && (
           <div className="p-6 pt-12 fixed top-0 right-0 w-2/3 h-full bg-white shadow-md z-50">
             <button onClick={toggleMenu} className="absolute top-2 right-2 text-gray-600 hover:text-gray-800">
@@ -61,8 +61,8 @@ function App() {
           <div className={`h-full opacity-40 ${isMenuOpen ? 'block' : 'hidden'}`}></div>
         </div>
 
-        <div className="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-8">
-        <div className="lg:sticky lg:top-4">
+        <div className=" mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-8">
+        <div className="hidden lg:block g:sticky lg:top-4 ">
             <div>
               <FiltersSection />
             </div>
