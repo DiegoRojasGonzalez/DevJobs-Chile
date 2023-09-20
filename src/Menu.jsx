@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function Menu() {
+function menu() {
   const [theme, setTheme] = useState(() => {
     const storedTheme = localStorage.getItem("theme");
     if (storedTheme) {
@@ -63,4 +63,4 @@ function Menu() {
 
   );
 }
-export default Menu;
+export default menu;
