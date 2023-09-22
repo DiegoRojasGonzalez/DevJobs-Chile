@@ -3,7 +3,7 @@ import React from 'react';
 function jobsCards() {
 
   return (
-        
+    <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       <a
         href="#"
         class="relative block overflow-hidden rounded-lg border border-gray-300 p-4 sm:p-6 lg:p-8"
@@ -49,6 +49,7 @@ function jobsCards() {
           </div>
         </dl>
       </a>
+    </ul>
   );
 }
 
