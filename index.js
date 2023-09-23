@@ -1,22 +1,17 @@
 const express = require('express');
-const fs = require('fs');
-const scraper = require('./scrapingData');
+//const fs = require('fs');
+const scraper = require('./scrapingData'); // Importa las funciones de scraping desde scrapingData.js
 const app = express();
-//scraper.scrapeLogic();
-
 
 app.get('/scraped-data', async (req, res) => {
     try {
-      console.log("Se va a ejecutar el scraping");
-      const scrapedData = await scraper.scrapEmpleosPublicos(); // Asegúrate de que esta función devuelva datos en formato JSON o en el formato deseado
-      console.log("Scraping completado");
-  
+      const scrapedData = await scraper.scrapeLogic(); // Usa scraper en lugar de scrapeLogic
       res.json(scrapedData);
     } catch (error) {
       console.error(error);
       res.status(500).send('Error interno del servidor');
     }
-  });
+});
 
 app.get('/', (req, res) => {
   res.send('¡Hola, mundo!');

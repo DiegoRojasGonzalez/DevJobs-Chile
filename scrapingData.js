@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer");
 
-function scrapeLogic() {
+async function scrapeLogic() {
 
   async function scrapEmpleosPublicos() {
     const browser = await puppeteer.launch({
@@ -61,6 +61,7 @@ function scrapeLogic() {
       return visibleCards;
     });
     await browser.close();
+    return visibleCardElements;
 
   }
   
@@ -128,9 +129,9 @@ function scrapeLogic() {
 
       return visibleCards;
     });
-    const result = updateData(visibleCardElements);
-
     await browser.close();
+    return visibleCardElements;
+
   }
 
   async function scrapEmpleosPublicos3() {
@@ -199,12 +200,36 @@ function scrapeLogic() {
     });
 
     await browser.close();
+    return visibleCardElements;
+
+  }
+  //scrap functions 
+  const scrapedData1 = await scrapEmpleosPublicos();
+  const scrapedData2 = await scrapEmpleosPublicos2();
+  const scrapedData3 = await scrapEmpleosPublicos3();
+
+  
+
+  const uniqueNames = new Set();
+
+  function addUniqueObjects(dataArray) {
+    dataArray.forEach((obj) => {
+      if (!uniqueNames.has(obj.name)) {
+        uniqueNames.add(obj.name);
+        dataEmpleosPublicos.push(obj);
+      }
+    });
   }
 
-  scrapEmpleosPublicos();
-  //scrapEmpleosPublicos2();
-  //scrapEmpleosPublicos3();
+  const dataEmpleosPublicos = [];
 
+  addUniqueObjects(scrapedData1);
+  addUniqueObjects(scrapedData2);
+  addUniqueObjects(scrapedData3);
+
+  return dataEmpleosPublicos;
 }
 
-scrapeLogic()
+module.exports = {
+  scrapeLogic: scrapeLogic, // O simplemente scrapeLogic si así se llama la función
+};
