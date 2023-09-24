@@ -4,7 +4,7 @@ async function scrapeLogic() {
 
   async function scrapEmpleosPublicos() {
     const browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
     });
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(60000);
@@ -67,7 +67,7 @@ async function scrapeLogic() {
   
   async function scrapEmpleosPublicos2() {
     const browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
     });
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(60000);
@@ -136,7 +136,7 @@ async function scrapeLogic() {
 
   async function scrapEmpleosPublicos3() {
     const browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
     });
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(60000);
@@ -231,5 +231,5 @@ async function scrapeLogic() {
 }
 
 module.exports = {
-  scrapeLogic: scrapeLogic, // O simplemente scrapeLogic si así se llama la función
+  scrapeLogic: scrapeLogic, 
 };
