@@ -1,54 +1,80 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function jobsCards() {
+  const [jobData, setJobData] = useState([]);
+
+  useEffect(() => {
+    function fetchJobData() {
+      axios.get('http://localhost:3000/scraped-data')
+        .then((response) => {
+          const newJobData = response.data;
+          const currentTimestamp = new Date();
+          const dataToStore = {
+            data: newJobData,
+            timestamp: currentTimestamp.toISOString(),
+          };
+          localStorage.setItem('jobData', JSON.stringify(dataToStore));
+          setJobData(newJobData);
+        })
+        .catch((error) => {
+          console.error('Error al cargar datos:', error);
+        });
+    }
+
+    const localStorageData = localStorage.getItem('jobData');
+
+    if (localStorageData) {
+      const parsedData = JSON.parse(localStorageData);
+      const storedTimestamp = new Date(parsedData.timestamp);
+      const currentTimestamp = new Date();
+      if (currentTimestamp - storedTimestamp > 6* 60 * 60 * 1000) {
+        fetchJobData();
+      } else {
+        setJobData(parsedData.data);
+      }
+    } else {
+      fetchJobData();
+    }
+  }, []);
+
 
   return (
     <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      <a
-        href="#"
-        class="relative block overflow-hidden rounded-lg border border-gray-300 p-4 sm:p-6 lg:p-8"
-      >
-        <span
-          class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"
-        ></span>
-      
-        <div class="sm:flex sm:justify-between sm:gap-4">
-          <div>
-            <h3 class="text-lg font-bold text-gray-900 sm:text-xl">
-              Building a SaaS product as a software developer
-            </h3>
-      
-            <p class="mt-1 text-xs font-medium text-gray-600">By John Doe</p>
-          </div>
-      
-          <div class="hidden sm:block sm:shrink-0">
-            <img
-              alt="Paul Clapton"
-              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
-              class="h-16 w-16 rounded-lg object-cover shadow-sm"
-            />
-          </div>
+      {jobData.map((job, index) => (
+        <div key={index}>
+          <a href={job.urlJob} class="h-full relative block overflow-hidden rounded-lg border border-gray-300 p-4 sm:p-6 lg:p-8">
+            <span class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
+            <div class="sm:flex sm:justify-between sm:gap-4 ">
+              <div>
+                <h3 class="text-lg font-bold text-gray-900 sm:text-xl">{job.name}</h3>
+                <p class="mt-1 text-xs font-medium text-gray-600">Publicado por {job.publisher}</p>
+              </div>
+            </div>
+            <div class="mt-4">
+            <p class="mt-1 text-xs font-medium text-gray-600">Empresa - {job.enterprise}</p>
+
+              <p class="max-w-[40ch] text-sm text-gray-500">{job.deatilsCut}</p>
+            </div>
+            <dl class="mt-6 flex gap-4 sm:gap-6">
+              
+            {job.expirationDate !== "" && (
+              <div class="flex flex-col">
+                <dd class="text-xs text-gray-500">Termino postulacion</dd>
+                <dt class="text-sm font-medium text-gray-600">{job.expirationDate}</dt>
+              </div>
+            )}
+
+              <div class="flex flex-col">
+                <dd class="text-xs text-gray-500">Ubicacion </dd>
+                <dt class="text-sm font-medium text-gray-600">{job.location}</dt>
+
+              </div>
+            </dl>
+          </a>
+
         </div>
-      
-        <div class="mt-4">
-          <p class="max-w-[40ch] text-sm text-gray-500">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. At velit illum
-            provident a, ipsa maiores deleniti consectetur nobis et eaque.
-          </p>
-        </div>
-      
-        <dl class="mt-6 flex gap-4 sm:gap-6">
-          <div class="flex flex-col-reverse">
-            <dt class="text-sm font-medium text-gray-600">Published</dt>
-            <dd class="text-xs text-gray-500">31st June, 2021</dd>
-          </div>
-      
-          <div class="flex flex-col-reverse">
-            <dt class="text-sm font-medium text-gray-600">Reading time</dt>
-            <dd class="text-xs text-gray-500">3 minute</dd>
-          </div>
-        </dl>
-      </a>
+      ))}
     </ul>
   );
 }
