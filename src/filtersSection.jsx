@@ -4,26 +4,36 @@ function FiltersSection() {
   const [locations, setLocations] = useState([]);
   const [selectedLocations, setSelectedLocations] = useState([]);
 
+  const [publishers, setPublishers] = useState([]);
+  const [selectedPublishers, setSelectedpublishers] = useState([]);
+
   useEffect(() => {
     // Obtener los datos del localStorage
     const localStorageData = localStorage.getItem('jobData');
 
     if (localStorageData) {
       const parsedData = JSON.parse(localStorageData);
-      // Verificar si hay datos de ubicación en los datos almacenados
       if (parsedData.data && Array.isArray(parsedData.data)) {
         const jobData = parsedData.data;
         
-        // Obtener todas las ubicaciones
         const allLocations = jobData.map((job) => job.location);
-        
-        // Contar las repeticiones de cada ubicación
+        const allPublishers = jobData.map((job) => job.publisher);
+
         const locationCount = {};
         allLocations.forEach((location) => {
           if (!locationCount[location]) {
             locationCount[location] = 1;
           } else {
             locationCount[location]++;
+          }
+        });
+
+        const publisherCount = {};
+        allPublishers.forEach((publisher) => {
+          if (!publisherCount[publisher]) {
+            publisherCount[publisher] = 1;
+          } else {
+            publisherCount[publisher]++;
           }
         });
         
@@ -33,13 +43,36 @@ function FiltersSection() {
           location,
           count: locationCount[location],
         }));
+
+        // Obtener un array de objetos con el nombre y la cantidad de repeticiones
+        const publisherList = Object.keys(publisherCount).map((publisher) => ({
+          publisher,
+          count: publisherCount[publisher],
+        }));
         
+        setPublishers(publisherList);
         setLocations(locationList);
       }
     }
   }, []);
 
-  const handleCheckboxChange = (event) => {
+    const handleCheckboxChangePublisher = (event) => {
+      const publisherId = event.target.id.replace('Publisher', ''); // Usar el identificador adecuado aquí
+      const newSelectedPublishers = [...selectedPublishers];
+      
+      if (event.target.checked) {
+        newSelectedPublishers.push(publisherId);
+      } else {
+        const index = newSelectedPublishers.indexOf(publisherId);
+        if (index !== -1) {
+          newSelectedPublishers.splice(index, 1);
+        }
+      }
+      
+      setSelectedpublishers(newSelectedPublishers);
+    };
+
+  const handleCheckboxChangeLocation = (event) => {
     const location = event.target.id.replace('Location', '');
     const newSelectedLocations = [...selectedLocations];
     
@@ -55,8 +88,14 @@ function FiltersSection() {
     setSelectedLocations(newSelectedLocations);
   };
 
-  const handleReset = () => {
+  
+
+  const handleResetLocations = () => {
     setSelectedLocations([]);
+  };
+
+  const handleResetPublishers = () => {
+    setSelectedpublishers([]);
   };
 
   return (
@@ -77,13 +116,13 @@ function FiltersSection() {
             <header className="flex items-center justify-between p-4">
               <span className="text-sm text-gray-700">{selectedLocations.length} Seleccionados</span>
 
-              <button type="button" className="text-sm text-gray-900 underline underline-offset-4" onClick={handleReset}>Reiniciar</button>
+              <button type="button" className="text-sm text-gray-900 underline underline-offset-4" onClick={handleResetLocations}>Reiniciar</button>
             </header>
             <ul className="space-y-1 border-t border-gray-200 p-4">
               {locations.map((loc, index) => (
                 <li key={index}>
                   <label htmlFor={`Location${index}`} className="inline-flex items-center gap-2">
-                    <input type="checkbox" id={`Location${index}`} className="h-5 w-5 rounded border-gray-300" onChange={handleCheckboxChange} checked={selectedLocations.includes(index.toString())} />
+                    <input type="checkbox" id={`Location${index}`} className="h-5 w-5 rounded border-gray-300" onChange={handleCheckboxChangeLocation} checked={selectedLocations.includes(index.toString())} />
                     <span className="text-sm font-medium text-gray-700">{loc.location} ({loc.count})</span>
                   </label>
                 </li>
@@ -104,21 +143,23 @@ function FiltersSection() {
 
           <div className="border-t border-gray-200 bg-white">
             <header className="flex items-center justify-between p-4">
-              <span className="text-sm text-gray-700">0 Seleccionados</span>
+              <span className="text-sm text-gray-700">{selectedPublishers.length} Seleccionados</span>
 
-              <button type="button" className="text-sm text-gray-900 underline underline-offset-4" >Reiniciar</button>
+              <button type="button" className="text-sm text-gray-900 underline underline-offset-4" onClick={handleResetPublishers}>Reiniciar</button>
             </header>
             <ul className="space-y-1 border-t border-gray-200 p-4">
-                <li>
-                  <label className="inline-flex items-center gap-2">
-                    <input type="checkbox" className="h-5 w-5 rounded border-gray-300"/>
-                    <span className="text-sm font-medium text-gray-700">www.example.com </span>
+              {publishers.map((pub, index) => (
+                <li key={index}>
+                  <label htmlFor={`Publisher${index}`} className="inline-flex items-center gap-2">
+                    <input type="checkbox" id={`Publisher${index}`} className="h-5 w-5 rounded border-gray-300" onChange={handleCheckboxChangePublisher} checked={selectedPublishers.includes(index.toString())} />
+                    <span className="text-sm font-medium text-gray-700">{pub.publisher} ({pub.count})</span>
                   </label>
                 </li>
-              
+              ))}
             </ul>
           </div>
         </details>
+
       </div>
     </section>
   );
