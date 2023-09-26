@@ -62,7 +62,7 @@ function App() {
         </div>
 
         <div className=" mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-8">
-        <div className="hidden lg:block g:sticky lg:top-4 ">
+        <div className="hidden lg:block sticky lg:top-4 ">
             <div>
               <FiltersSection />
             </div>
