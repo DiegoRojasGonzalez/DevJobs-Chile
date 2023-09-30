@@ -8,7 +8,36 @@ function FiltersSection() {
   const [selectedPublishers, setSelectedpublishers] = useState([]);
   const [selectedLocationNames, setSelectedLocationNames] = useState([]);
   const [selectedPublisherNames, setSelectedPublisherNames] = useState([]);
+  console.log(selectedLocationNames)
+  console.log(selectedPublisherNames)
 
+   const handleFetchData = () => {
+    
+    // Verificar si selectedLocationNames tiene valores y realizar la búsqueda
+    if (selectedLocationNames.length > 0) {
+      const filteredByLocation = JSON.parse(localStorage.getItem('jobData')).data.filter((job) => {
+        return selectedLocationNames.includes(job.location);
+      });
+
+      // Hacer algo con los objetos filtrados por ubicación, como mostrarlos en la interfaz de usuario
+      console.log('Objetos filtrados por ubicación:', filteredByLocation);
+    }
+
+    // Verificar si selectedPublisherNames tiene valores y realizar la búsqueda
+    if (selectedPublisherNames.length > 0) {
+      const filteredByPublisher = JSON.parse(localStorage.getItem('jobData')).data.filter((job) => {
+        return selectedPublisherNames.includes(job.publisher);
+      });
+
+      // Hacer algo con los objetos filtrados por editor, como mostrarlos en la interfaz de usuario
+      console.log('Objetos filtrados por editor:', filteredByPublisher);
+    }
+
+    // Si ninguno de los dos tiene valores, no hacer nada
+    if (selectedLocationNames.length === 0 && selectedPublisherNames.length === 0) {
+      console.log('No hay ubicaciones ni editores seleccionados.');
+    }
+  };
 
   useEffect(() => {
     const localStorageData = localStorage.getItem('jobData');
@@ -183,6 +212,7 @@ function FiltersSection() {
             </ul>
           </div>
         </details>
+        <button onClick={handleFetchData}>Buscar en el localStorage</button>
 
       </div>
     </section>
