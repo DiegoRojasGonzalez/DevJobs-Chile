@@ -210,7 +210,11 @@ function FiltersSection() {
             </ul>
           </div>
         </details>
-        <button onClick={handleFetchData}>Buscar </button>
+        <details className="overflow-hidden rounded border border-gray-300 ">
+          <summary className="flex cursor-pointer items-center justify-center gap-2 bg-white text-gray-900 transition ">
+            <button className="p-4 text-sm font-medium w-full h-full hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500" onClick={handleFetchData}>Filtrar</button>
+          </summary>
+        </details>
 
       </div>
     </section>
