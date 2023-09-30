@@ -6,9 +6,11 @@ function FiltersSection() {
 
   const [publishers, setPublishers] = useState([]);
   const [selectedPublishers, setSelectedpublishers] = useState([]);
+  const [selectedLocationNames, setSelectedLocationNames] = useState([]);
+  const [selectedPublisherNames, setSelectedPublisherNames] = useState([]);
+
 
   useEffect(() => {
-    // Obtener los datos del localStorage
     const localStorageData = localStorage.getItem('jobData');
 
     if (localStorageData) {
@@ -56,39 +58,61 @@ function FiltersSection() {
     }
   }, []);
 
-    const handleCheckboxChangePublisher = (event) => {
-      const publisherId = event.target.id.replace('Publisher', ''); // Usar el identificador adecuado aquí
-      const newSelectedPublishers = [...selectedPublishers];
-      
-      if (event.target.checked) {
-        newSelectedPublishers.push(publisherId);
-      } else {
-        const index = newSelectedPublishers.indexOf(publisherId);
-        if (index !== -1) {
-          newSelectedPublishers.splice(index, 1);
-        }
-      }
-      
-      setSelectedpublishers(newSelectedPublishers);
-    };
 
-  const handleCheckboxChangeLocation = (event) => {
-    const location = event.target.id.replace('Location', '');
-    const newSelectedLocations = [...selectedLocations];
-    
+  const handleCheckboxChangePublisher = (event) => {
+    const publisherId = event.target.id.replace('Publisher', '');
+    const newSelectedPublishers = [...selectedPublishers];
+    const publisherName = publishers[publisherId]?.publisher;
+  
     if (event.target.checked) {
-      newSelectedLocations.push(location);
+      if (!newSelectedPublishers.includes(publisherId)) {
+        newSelectedPublishers.push(publisherId);
+        // Agregar el nombre al estado selectedPublisherNames
+        setSelectedPublisherNames((prevState) => [...prevState, publisherName]);
+      }
     } else {
-      const index = newSelectedLocations.indexOf(location);
+      const index = newSelectedPublishers.indexOf(publisherId);
       if (index !== -1) {
-        newSelectedLocations.splice(index, 1);
+        newSelectedPublishers.splice(index, 1);
+        // Eliminar el nombre del estado selectedPublisherNames
+        setSelectedPublisherNames((prevState) =>
+          prevState.filter((name) => name !== publisherName)
+        );
       }
     }
-    
-    setSelectedLocations(newSelectedLocations);
-  };
-
   
+    setSelectedpublishers(newSelectedPublishers);
+    console.log(`Elemento seleccionado: ${publisherName}`);
+    console.log(`Elementos seleccionados: ${newSelectedPublishers}`);
+  };
+  
+  const handleCheckboxChangeLocation = (event) => {
+    const locationId = event.target.id.replace('Location', '');
+    const newSelectedLocations = [...selectedLocations];
+    const locationName = locations[locationId]?.location;
+  
+    if (event.target.checked) {
+      if (!newSelectedLocations.includes(locationId)) {
+        newSelectedLocations.push(locationId);
+        // Agregar el nombre al estado selectedLocationNames
+        setSelectedLocationNames((prevState) => [...prevState, locationName]);
+      }
+    } else {
+      const index = newSelectedLocations.indexOf(locationId);
+      if (index !== -1) {
+        newSelectedLocations.splice(index, 1);
+        // Eliminar el nombre del estado selectedLocationNames
+        setSelectedLocationNames((prevState) =>
+          prevState.filter((name) => name !== locationName)
+        );
+      }
+    }
+  
+    setSelectedLocations(newSelectedLocations);
+    console.log(`Elemento seleccionado: ${locationName}`);
+    console.log(`Elementos seleccionados: ${newSelectedLocations}`);
+  };
+    
 
   const handleResetLocations = () => {
     setSelectedLocations([]);
