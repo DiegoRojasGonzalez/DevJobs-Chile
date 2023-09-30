@@ -10,27 +10,34 @@ function FiltersSection() {
   const [selectedPublisherNames, setSelectedPublisherNames] = useState([]);
   console.log(selectedLocationNames)
   console.log(selectedPublisherNames)
+  const [filteredByLocation, setFilteredByLocation] = useState([]);
+  const [filteredByPublisher, setFilteredByPublisher] = useState([]);
 
-   const handleFetchData = () => {
-    
+  const handleFetchData = () => {
+    setFilteredByLocation([]);
+    setFilteredByPublisher([]);
+
     // Verificar si selectedLocationNames tiene valores y realizar la búsqueda
     if (selectedLocationNames.length > 0) {
-      const filteredByLocation = JSON.parse(localStorage.getItem('jobData')).data.filter((job) => {
+      const filteredLocation = JSON.parse(localStorage.getItem('jobData')).data.filter((job) => {
         return selectedLocationNames.includes(job.location);
       });
 
-      // Hacer algo con los objetos filtrados por ubicación, como mostrarlos en la interfaz de usuario
-      console.log('Objetos filtrados por ubicación:', filteredByLocation);
+      // Actualizar los resultados filtrados por ubicación
+      setFilteredByLocation(filteredLocation);
+      console.log('Objetos filtrados por ubicación:', filteredLocation);
     }
 
     // Verificar si selectedPublisherNames tiene valores y realizar la búsqueda
     if (selectedPublisherNames.length > 0) {
-      const filteredByPublisher = JSON.parse(localStorage.getItem('jobData')).data.filter((job) => {
-        return selectedPublisherNames.includes(job.publisher);
+      const filteredPublisher = JSON.parse(localStorage.getItem('jobData')).data.filter((job) => {
+        // Usamos el método some para verificar si alguna cadena en selectedPublisherNames está en el array job.publisher
+        return selectedPublisherNames.some((publisherName) => job.publisher.includes(publisherName));
       });
-
-      // Hacer algo con los objetos filtrados por editor, como mostrarlos en la interfaz de usuario
-      console.log('Objetos filtrados por editor:', filteredByPublisher);
+    
+      // Actualizar los resultados filtrados por editor
+      setFilteredByPublisher(filteredPublisher);
+      console.log('Objetos filtrados por editor:', filteredPublisher);
     }
 
     // Si ninguno de los dos tiene valores, no hacer nada
@@ -111,8 +118,6 @@ function FiltersSection() {
     }
   
     setSelectedpublishers(newSelectedPublishers);
-    console.log(`Elemento seleccionado: ${publisherName}`);
-    console.log(`Elementos seleccionados: ${newSelectedPublishers}`);
   };
   
   const handleCheckboxChangeLocation = (event) => {
@@ -138,8 +143,6 @@ function FiltersSection() {
     }
   
     setSelectedLocations(newSelectedLocations);
-    console.log(`Elemento seleccionado: ${locationName}`);
-    console.log(`Elementos seleccionados: ${newSelectedLocations}`);
   };
     
 
