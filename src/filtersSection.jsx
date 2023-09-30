@@ -16,34 +16,27 @@ function FiltersSection() {
   const handleFetchData = () => {
     setFilteredByLocation([]);
     setFilteredByPublisher([]);
-
-    // Verificar si selectedLocationNames tiene valores y realizar la búsqueda
+  
+    const jobData = JSON.parse(localStorage.getItem('jobData')).data;
+  
+    let filteredLocation = jobData;
     if (selectedLocationNames.length > 0) {
-      const filteredLocation = JSON.parse(localStorage.getItem('jobData')).data.filter((job) => {
+      filteredLocation = filteredLocation.filter((job) => {
         return selectedLocationNames.includes(job.location);
       });
-
-      // Actualizar los resultados filtrados por ubicación
-      setFilteredByLocation(filteredLocation);
-      console.log('Objetos filtrados por ubicación:', filteredLocation);
     }
-
-    // Verificar si selectedPublisherNames tiene valores y realizar la búsqueda
+  
+    let filteredPublisher = jobData;
     if (selectedPublisherNames.length > 0) {
-      const filteredPublisher = JSON.parse(localStorage.getItem('jobData')).data.filter((job) => {
-        // Usamos el método some para verificar si alguna cadena en selectedPublisherNames está en el array job.publisher
+      filteredPublisher = filteredPublisher.filter((job) => {
         return selectedPublisherNames.some((publisherName) => job.publisher.includes(publisherName));
       });
-    
-      // Actualizar los resultados filtrados por editor
-      setFilteredByPublisher(filteredPublisher);
-      console.log('Objetos filtrados por editor:', filteredPublisher);
     }
-
-    // Si ninguno de los dos tiene valores, no hacer nada
-    if (selectedLocationNames.length === 0 && selectedPublisherNames.length === 0) {
-      console.log('No hay ubicaciones ni editores seleccionados.');
-    }
+  
+    const finalFilteredJobs = filteredLocation.filter((job) => filteredPublisher.includes(job));
+  
+    setFilteredByLocation(finalFilteredJobs);
+    console.log('Objetos filtrados por ubicación y editor:', finalFilteredJobs);
   };
 
   useEffect(() => {
@@ -75,14 +68,12 @@ function FiltersSection() {
           }
         });
         
-        // Crear un array de ubicaciones únicas y contar
         const uniqueLocations = Array.from(new Set(allLocations));
         const locationList = uniqueLocations.map((location) => ({
           location,
           count: locationCount[location],
         }));
 
-        // Obtener un array de objetos con el nombre y la cantidad de repeticiones
         const publisherList = Object.keys(publisherCount).map((publisher) => ({
           publisher,
           count: publisherCount[publisher],
@@ -103,14 +94,12 @@ function FiltersSection() {
     if (event.target.checked) {
       if (!newSelectedPublishers.includes(publisherId)) {
         newSelectedPublishers.push(publisherId);
-        // Agregar el nombre al estado selectedPublisherNames
         setSelectedPublisherNames((prevState) => [...prevState, publisherName]);
       }
     } else {
       const index = newSelectedPublishers.indexOf(publisherId);
       if (index !== -1) {
         newSelectedPublishers.splice(index, 1);
-        // Eliminar el nombre del estado selectedPublisherNames
         setSelectedPublisherNames((prevState) =>
           prevState.filter((name) => name !== publisherName)
         );
@@ -128,14 +117,12 @@ function FiltersSection() {
     if (event.target.checked) {
       if (!newSelectedLocations.includes(locationId)) {
         newSelectedLocations.push(locationId);
-        // Agregar el nombre al estado selectedLocationNames
         setSelectedLocationNames((prevState) => [...prevState, locationName]);
       }
     } else {
       const index = newSelectedLocations.indexOf(locationId);
       if (index !== -1) {
         newSelectedLocations.splice(index, 1);
-        // Eliminar el nombre del estado selectedLocationNames
         setSelectedLocationNames((prevState) =>
           prevState.filter((name) => name !== locationName)
         );
@@ -215,7 +202,7 @@ function FiltersSection() {
             </ul>
           </div>
         </details>
-        <button onClick={handleFetchData}>Buscar en el localStorage</button>
+        <button onClick={handleFetchData}>Buscar </button>
 
       </div>
     </section>
