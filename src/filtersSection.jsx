@@ -8,8 +8,7 @@ function FiltersSection() {
   const [selectedPublishers, setSelectedpublishers] = useState([]);
   const [selectedLocationNames, setSelectedLocationNames] = useState([]);
   const [selectedPublisherNames, setSelectedPublisherNames] = useState([]);
-  console.log(selectedLocationNames)
-  console.log(selectedPublisherNames)
+
   const [filteredByLocation, setFilteredByLocation] = useState([]);
   const [filteredByPublisher, setFilteredByPublisher] = useState([]);
 
@@ -39,7 +38,6 @@ function FiltersSection() {
     localStorage.setItem('filteredJobs', JSON.stringify(finalFilteredJobs));
   
     setFilteredByLocation(finalFilteredJobs);
-    console.log('Objetos filtrados por ubicación y editor:', finalFilteredJobs);
 
     //actualizar la web 
     window.location.reload();
