@@ -23,12 +23,16 @@ function jobsCards() {
     }
 
     const localStorageData = localStorage.getItem('jobData');
+    const localStorageFilteredData = localStorage.getItem('filteredJobs'); // Nuevo
 
-    if (localStorageData) {
+    if (localStorageFilteredData) {
+      // Si hay datos filtrados en el Local Storage, mostrarlos en lugar de los originales
+      setJobData(JSON.parse(localStorageFilteredData));
+    } else if (localStorageData) {
       const parsedData = JSON.parse(localStorageData);
       const storedTimestamp = new Date(parsedData.timestamp);
       const currentTimestamp = new Date();
-      if (currentTimestamp - storedTimestamp > 6* 60 * 60 * 1000) {
+      if (currentTimestamp - storedTimestamp > 6 * 60 * 60 * 1000) {
         fetchJobData();
       } else {
         setJobData(parsedData.data);

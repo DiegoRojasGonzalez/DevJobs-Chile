@@ -35,9 +35,17 @@ function FiltersSection() {
   
     const finalFilteredJobs = filteredLocation.filter((job) => filteredPublisher.includes(job));
   
+    // Guardar finalFilteredJobs en el Local Storage
+    localStorage.setItem('filteredJobs', JSON.stringify(finalFilteredJobs));
+  
     setFilteredByLocation(finalFilteredJobs);
     console.log('Objetos filtrados por ubicación y editor:', finalFilteredJobs);
+
+    //actualizar la web 
+    window.location.reload();
+
   };
+  
 
   useEffect(() => {
     const localStorageData = localStorage.getItem('jobData');
