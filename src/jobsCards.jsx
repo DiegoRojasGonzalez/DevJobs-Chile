@@ -1,8 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+function LoadingComponent() {
+  return (
+    <div role="status" class="max-w-sm animate-pulse rounded-lg border border-gray-200 p-4 shadow dark:border-gray-700 md:p-6">
+      <div class="mb-2 h-2.5 w-65 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+      <div class="mb-4 flex h-48 items-center justify-center rounded bg-gray-300 dark:bg-gray-700"></div>
+      <div class="mb-4 h-2.5 w-40 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+      <div class="mb-2.5 h-2 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+      <div class="mb-2.5 h-2 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+      <div class="h-2 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+      <div class="mt-4 flex items-center space-x-3">
+        <div><div class="h-2 w-20 rounded-full bg-gray-200 dark:bg-gray-700"></div></div>
+        <div><div class="h-2 w-20 rounded-full bg-gray-200 dark:bg-gray-700"></div></div>
+      </div>
+    </div>
+    );
+}
+
+
+
 function jobsCards() {
   const [jobData, setJobData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // Debe ser en minúsculas
 
   useEffect(() => {
     function fetchJobData() {
@@ -16,6 +36,8 @@ function jobsCards() {
           };
           localStorage.setItem('jobData', JSON.stringify(dataToStore));
           setJobData(newJobData);
+          setIsLoading(false);
+
           window.location.reload();
 
         })
@@ -28,20 +50,24 @@ function jobsCards() {
     const localStorageFilteredData = localStorage.getItem('filteredJobs');
     
     if (localStorageFilteredData) {
+      setIsLoading(false); // Actualiza el estado isLoading a falso
+
       // Si hay datos filtrados en el Local Storage, mostrarlos en lugar de los originales
       setJobData(JSON.parse(localStorageFilteredData));
       const parsedData = JSON.parse(localStorageFilteredData);
       const storedTimestamp = new Date(parsedData.timestamp);
       const currentTimestamp = new Date();
       const oneHourInMilliseconds = 1 * 60 * 60 * 1000; // 1 hora en milisegundos
-
+    
       // Verificar si los datos filtrados son antiguos (más de 1 hora)
       if (currentTimestamp - storedTimestamp > oneHourInMilliseconds) {
         // Los datos filtrados son antiguos, eliminarlos y realizar un nuevo fetch
         localStorage.removeItem('filteredJobs');
-        fetchJobData();
+        fetchJobData(); // Llama a fetchJobData para cargar nuevos datos
       }
     } else if (localStorageData) {
+      setIsLoading(false); // Actualiza el estado isLoading a falso
+    
       const parsedData = JSON.parse(localStorageData);
       const storedTimestamp = new Date(parsedData.timestamp);
       const currentTimestamp = new Date();
@@ -58,6 +84,16 @@ function jobsCards() {
     }
   }, []);
 
+  if (isLoading) {
+    const numberOfLoadingComponents = 12;
+    return (
+      <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {Array.from({ length: numberOfLoadingComponents }, (_, index) => (
+          <LoadingComponent key={index} />
+        ))}
+      </ul>
+    );
+  }
 
   return (
     <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
