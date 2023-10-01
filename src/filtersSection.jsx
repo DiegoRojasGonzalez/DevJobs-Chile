@@ -11,6 +11,7 @@ function FiltersSection() {
 
   const [filteredByLocation, setFilteredByLocation] = useState([]);
   const [filteredByPublisher, setFilteredByPublisher] = useState([]);
+  const [timefilterobjet, setTimefilterobjet] = useState(null);
 
   const handleFetchData = () => {
     setFilteredByLocation([]);
@@ -36,9 +37,9 @@ function FiltersSection() {
   
     // Guardar finalFilteredJobs en el Local Storage
     localStorage.setItem('filteredJobs', JSON.stringify(finalFilteredJobs));
-  
-    setFilteredByLocation(finalFilteredJobs);
+    // Obtener la fecha y hora actual
 
+    setFilteredByLocation(finalFilteredJobs);
     //actualizar la web 
     window.location.reload();
 

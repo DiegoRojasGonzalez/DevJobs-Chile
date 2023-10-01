@@ -16,6 +16,8 @@ function jobsCards() {
           };
           localStorage.setItem('jobData', JSON.stringify(dataToStore));
           setJobData(newJobData);
+          window.location.reload();
+
         })
         .catch((error) => {
           console.error('Error al cargar datos:', error);
@@ -23,17 +25,31 @@ function jobsCards() {
     }
 
     const localStorageData = localStorage.getItem('jobData');
-    const localStorageFilteredData = localStorage.getItem('filteredJobs'); // Nuevo
-
+    const localStorageFilteredData = localStorage.getItem('filteredJobs');
+    
     if (localStorageFilteredData) {
       // Si hay datos filtrados en el Local Storage, mostrarlos en lugar de los originales
       setJobData(JSON.parse(localStorageFilteredData));
+      const parsedData = JSON.parse(localStorageFilteredData);
+      const storedTimestamp = new Date(parsedData.timestamp);
+      const currentTimestamp = new Date();
+      const oneHourInMilliseconds = 1 * 60 * 60 * 1000; // 1 hora en milisegundos
+
+      // Verificar si los datos filtrados son antiguos (más de 1 hora)
+      if (currentTimestamp - storedTimestamp > oneHourInMilliseconds) {
+        // Los datos filtrados son antiguos, eliminarlos y realizar un nuevo fetch
+        localStorage.removeItem('filteredJobs');
+        fetchJobData();
+      }
     } else if (localStorageData) {
       const parsedData = JSON.parse(localStorageData);
       const storedTimestamp = new Date(parsedData.timestamp);
       const currentTimestamp = new Date();
+    
+      // Verificar si ha pasado más de 6 horas y eliminar filteredJobs si es necesario
       if (currentTimestamp - storedTimestamp > 6 * 60 * 60 * 1000) {
-        fetchJobData();
+        localStorage.removeItem('filteredJobs');
+        setJobData(parsedData.data);
       } else {
         setJobData(parsedData.data);
       }
