@@ -95,6 +95,22 @@ function jobsCards() {
     );
   }
 
+  const handleClearLocalStorage = () => {
+    localStorage.removeItem('filteredJobs');
+    window.location.reload();
+  };
+
+  if (jobData.length === 0){
+    return (
+        <div class="grid place-content-center ">
+          <div class="text-center">
+            <h1 class="text-9xl font-black text-gray-200">404</h1>
+            <p class="mt-4 text-gray-500">Lo siento, no se encontraron coincidencias con los parámetros de filtro proporcionados. Por favor, revise los criterios de búsqueda y vuelva a intentarlo.</p>
+            <button onClick={handleClearLocalStorage} href="#" class="inline-block px-5 py-3 mt-6 text-sm font-medium text-black rounded hover:text-white hover:bg-gray-500  border border-gray-300 dark:text-sky-400 dark:bg-slate-900 dark:hover:bg-slate-800" >Mostrar todo</button>
+          </div>
+        </div>
+    );
+  }
   return (
     <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {jobData.map((job, index) => (

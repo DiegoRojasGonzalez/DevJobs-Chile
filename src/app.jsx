@@ -75,7 +75,7 @@ function App() {
       </div>
     {showScrollButton && (
         <button
-          className="fixed bottom-4 right-4 bg-blue-500 hover:bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center cursor-pointer"
+          className="fixed bottom-4 right-4 bg-gray-500 hover:bg-gray-700 dark:bg-sky-400 dark:hover:bg-sky-700 text-white rounded-full w-12 h-12 flex items-center justify-center cursor-pointer"
           onClick={scrollToTop}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
