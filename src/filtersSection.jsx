@@ -148,6 +148,22 @@ function FiltersSection() {
     setSelectedpublishers([]);
   };
 
+ if (locations.length === 0 || publishers.length === 0 ){
+  return(
+    <div role="status" class="max-w-sm animate-pulse">
+      <div role="status" class="m-2 max-w-sm animate-pulse rounded-lg p-4 shadow dark:border-gray-200 md:p-3">
+        <div class="mb-2.5 h-10 rounded bg-gray-200 dark:bg-gray-700"></div>
+      </div>
+      <div role="status" class="m-2 max-w-sm animate-pulse rounded-lg p-4 shadow dark:border-gray-200 md:p-3">
+        <div class="mb-2.5 h-10 rounded bg-gray-200 dark:bg-gray-700"></div>
+      </div>
+      <div role="status" class="m-2 max-w-sm animate-pulse rounded-lg p-4 shadow dark:border-gray-200 md:p-3">
+        <div class="mb-2.5 h-10 rounded bg-gray-200 dark:bg-gray-700"></div>
+      </div>
+    </div>
+  )
+ }
+
   return (
     <section>
       <div className="space-y-2">

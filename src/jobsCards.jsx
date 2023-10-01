@@ -85,7 +85,7 @@ function jobsCards() {
   }, []);
 
   if (isLoading) {
-    const numberOfLoadingComponents = 12;
+    const numberOfLoadingComponents = 6;
     return (
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {Array.from({ length: numberOfLoadingComponents }, (_, index) => (
