@@ -63,31 +63,31 @@ function jobsCards() {
     <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {jobData.map((job, index) => (
         <div key={index}>
-          <a href={job.urlJob} class="h-full relative block overflow-hidden rounded-lg border border-gray-300 p-4 sm:p-6 lg:p-8">
+          <a target='_blank' href={job.urlJob} class="h-full relative block overflow-hidden rounded-lg border border-gray-300 p-4 sm:p-6 lg:p-8">
             <span class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
             <div class="sm:flex sm:justify-between sm:gap-4 ">
               <div>
-                <h3 class="text-lg font-bold text-gray-900 sm:text-xl">{job.name}</h3>
-                <p class="mt-1 text-xs font-medium text-gray-600">Publicado por {job.publisher}</p>
+                <h3 class="text-lg font-bold text-gray-900 sm:text-xl dark:text-slate-200">{job.name}</h3>
+                <p class="mt-1 text-xs font-medium text-gray-600 dark:text-slate-400 ">Publicado por {job.publisher}</p>
               </div>
             </div>
             <div class="mt-4">
-            <p class="mt-1 text-xs font-medium text-gray-600">Empresa - {job.enterprise}</p>
+            <p class="mt-1 text-xs font-medium text-gray-600 dark:text-slate-200">Empresa - {job.enterprise}</p>
 
-              <p class="max-w-[40ch] text-sm text-gray-500">{job.deatilsCut}</p>
+              <p class="max-w-[40ch] text-sm text-gray-500 dark:text-slate-400">{job.deatilsCut}</p>
             </div>
             <dl class="mt-6 flex gap-4 sm:gap-6">
               
             {job.expirationDate !== "" && (
               <div class="flex flex-col">
-                <dd class="text-xs text-gray-500">Termino postulacion</dd>
-                <dt class="text-sm font-medium text-gray-600">{job.expirationDate}</dt>
+                <dd class="text-xs text-gray-500 dark:text-slate-400">Termino postulacion</dd>
+                <dt class="text-sm font-medium text-gray-600  dark:text-sky-400 ">{job.expirationDate}</dt>
               </div>
             )}
 
               <div class="flex flex-col">
-                <dd class="text-xs text-gray-500">Ubicacion </dd>
-                <dt class="text-sm font-medium text-gray-600">{job.location}</dt>
+                <dd class="text-xs text-gray-500 dark:text-slate-200">Ubicacion </dd>
+                <dt class="text-sm font-medium text-gray-600 dark:text-sky-400">{job.location}</dt>
 
               </div>
             </dl>

@@ -151,29 +151,28 @@ function FiltersSection() {
   return (
     <section>
       <div className="space-y-2">
-        <details className="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden">
-          <summary className="flex cursor-pointer items-center justify-between gap-2 bg-white p-4 text-gray-900 transition">
-            <span className="text-sm font-medium">Ubicacion</span>
-
-            <span className="transition group-open:-rotate-180">
+        <details className=" overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden  dark:bg-slate-900 dark:border-slate-200 ">
+          <summary className="flex cursor-pointer items-center justify-between gap-2 bg-white p-4 text-gray-900  dark:bg-slate-900 ">
+            <span className="text-sm font-medium dark:text-sky-400 ">Ubicacion</span>
+            <span className="transition group-open:-rotate-180 dark:text-sky-400">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-4 w-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
             </span>
           </summary>
 
-          <div className="border-t border-gray-200 bg-white">
+          <div className="border-t border-gray-200 bg-white dark:bg-slate-900">
             <header className="flex items-center justify-between p-4">
-              <span className="text-sm text-gray-700">{selectedLocations.length} Seleccionados</span>
+              <span className="text-sm text-gray-700 dark:text-slate-400 ">{selectedLocations.length} Seleccionados</span>
 
-              <button type="button" className="text-sm text-gray-900 underline underline-offset-4" onClick={handleResetLocations}>Reiniciar</button>
+              <button type="button" className="text-sm text-gray-900 underline underline-offset-4 dark:text-sky-50" onClick={handleResetLocations}>Reiniciar</button>
             </header>
             <ul className="space-y-1 border-t border-gray-200 p-4">
               {locations.map((loc, index) => (
                 <li key={index}>
-                  <label htmlFor={`Location${index}`} className="inline-flex items-center gap-2">
-                    <input type="checkbox" id={`Location${index}`} className="h-5 w-5 rounded border-gray-300" onChange={handleCheckboxChangeLocation} checked={selectedLocations.includes(index.toString())} />
-                    <span className="text-sm font-medium text-gray-700">{loc.location} ({loc.count})</span>
+                  <label htmlFor={`Location${index}`} className="inline-flex items-center gap-2 ">
+                  <input type="checkbox" id={`Location${index}`} className="h-5 w-5 rounded checked:bg-blue-500" onChange={handleCheckboxChangeLocation} checked={selectedLocations.includes(index.toString())} />
+                    <span className="text-sm font-medium text-gray-700 dark:text-slate-400 ">{loc.location} ({loc.count})</span>
                   </label>
                 </li>
               ))}
@@ -181,28 +180,28 @@ function FiltersSection() {
           </div>
         </details>
         <details className="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden">
-          <summary className="flex cursor-pointer items-center justify-between gap-2 bg-white p-4 text-gray-900 transition">
-            <span className="text-sm font-medium">Publicante</span>
+          <summary className="flex cursor-pointer items-center justify-between gap-2 bg-white p-4 text-gray-900  dark:bg-slate-900">
+            <span className="text-sm font-medium dark:text-sky-400 ">Publicante</span>
 
-            <span className="transition group-open:-rotate-180">
+            <span className="transition group-open:-rotate-180 dark:text-sky-400 " >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-4 w-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
             </span>
           </summary>
 
-          <div className="border-t border-gray-200 bg-white">
+          <div className="border-t border-gray-200 bg-white dark:bg-slate-900">
             <header className="flex items-center justify-between p-4">
-              <span className="text-sm text-gray-700">{selectedPublishers.length} Seleccionados</span>
+              <span className="text-sm text-gray-700 dark:text-slate-400">{selectedPublishers.length} Seleccionados</span>
 
-              <button type="button" className="text-sm text-gray-900 underline underline-offset-4" onClick={handleResetPublishers}>Reiniciar</button>
+              <button type="button" className="text-sm text-gray-900 underline underline-offset-4 dark:text-sky-50" onClick={handleResetPublishers}>Reiniciar</button>
             </header>
             <ul className="space-y-1 border-t border-gray-200 p-4">
               {publishers.map((pub, index) => (
                 <li key={index}>
                   <label htmlFor={`Publisher${index}`} className="inline-flex items-center gap-2">
                     <input type="checkbox" id={`Publisher${index}`} className="h-5 w-5 rounded border-gray-300" onChange={handleCheckboxChangePublisher} checked={selectedPublishers.includes(index.toString())} />
-                    <span className="text-sm font-medium text-gray-700">{pub.publisher} ({pub.count})</span>
+                    <span className="text-sm font-medium text-gray-700 dark:text-slate-400">{pub.publisher} ({pub.count})</span>
                   </label>
                 </li>
               ))}
@@ -211,7 +210,7 @@ function FiltersSection() {
         </details>
         <details className="overflow-hidden rounded border border-gray-300 ">
           <summary className="flex cursor-pointer items-center justify-center gap-2 bg-white text-gray-900 transition ">
-            <button className="p-4 text-sm font-medium w-full h-full hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500" onClick={handleFetchData}>Filtrar</button>
+            <button className="p-4 text-sm font-medium w-full h-full hover:bg-gray-500 hover:text-white focus:outline-none focus:ring active:bg-indigo-500 dark:text-sky-400 dark:bg-slate-900 dark:hover:bg-slate-800" onClick={handleFetchData}>Filtrar</button>
           </summary>
         </details>
 
