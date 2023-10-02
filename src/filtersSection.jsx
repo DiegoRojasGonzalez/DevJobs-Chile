@@ -36,6 +36,12 @@ function FiltersSection() {
   
     const finalFilteredJobs = filteredLocation.filter((job) => filteredPublisher.includes(job));
   
+    // Obtener la fecha y hora actual
+    const currentDateTime = new Date();
+    const timestamp = currentDateTime.toISOString();
+    localStorage.setItem('timestampfiltered', timestamp);
+
+    
     // Guardar finalFilteredJobs en el Local Storage
     localStorage.setItem('filteredJobs', JSON.stringify(finalFilteredJobs));
     // Obtener la fecha y hora actual
@@ -150,6 +156,11 @@ function FiltersSection() {
   const handleResetPublishers = () => {
     setSelectedpublishers([]);
   };
+  
+  const handleReloadWeb = () => {
+    localStorage.clear();
+    window.location.reload();
+  }
 
  if (locations.length === 0 || publishers.length === 0 ){
   return(
@@ -168,10 +179,16 @@ function FiltersSection() {
   <div role="status" class="m-2 max-w-sm animate-pulse rounded-lg p-4 dark:border-gray-200 md:p-3">
     <div class="mb-2.5 h-10 rounded bg-gray-300 dark:bg-gray-700"></div>
   </div>
+  <div role="status" class="m-2 max-w-sm animate-pulse rounded-lg p-4 dark:border-gray-200 md:p-3">
+    <div class="mb-2.5 h-10 rounded bg-gray-300 dark:bg-gray-700"></div>
+  </div>
 </div>
 
   )
  }
+
+ 
+
 
   return (
     <section>
@@ -241,6 +258,11 @@ function FiltersSection() {
         <details className="overflow-hidden rounded border border-gray-300 ">
           <summary className="flex cursor-pointer items-center justify-center gap-2 bg-white text-gray-900 transition ">
             <button className="p-4 text-sm font-medium w-full h-full hover:bg-gray-500 hover:text-white dark:text-sky-400 dark:bg-slate-900 dark:hover:bg-slate-800" onClick={handleFetchData}>Filtrar</button>
+          </summary>
+        </details>
+        <details className="overflow-hidden rounded border border-gray-300 ">
+          <summary className="flex cursor-pointer items-center justify-center gap-2 bg-white text-gray-900 transition ">
+            <button className="p-4 text-sm font-medium w-full h-full hover:bg-gray-500 hover:text-white dark:text-sky-400 dark:bg-slate-900 dark:hover:bg-slate-800" onClick={handleReloadWeb}>Buscar nuevas ofertas</button>
           </summary>
         </details>
 

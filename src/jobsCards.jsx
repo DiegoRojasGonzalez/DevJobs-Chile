@@ -37,7 +37,6 @@ function jobsCards() {
           localStorage.setItem('jobData', JSON.stringify(dataToStore));
           setJobData(newJobData);
           setIsLoading(false);
-
           window.location.reload();
 
         })
@@ -51,30 +50,33 @@ function jobsCards() {
     
     if (localStorageFilteredData) {
       setIsLoading(false); // Actualiza el estado isLoading a falso
-
       // Si hay datos filtrados en el Local Storage, mostrarlos en lugar de los originales
       setJobData(JSON.parse(localStorageFilteredData));
-      const parsedData = JSON.parse(localStorageFilteredData);
-      const storedTimestamp = new Date(parsedData.timestamp);
+      
+      // Obtener la fecha almacenada en timestampfiltered del Local Storage
+      const storedTimestamp = new Date(localStorage.getItem('timestampfiltered'));
       const currentTimestamp = new Date();
-      const oneHourInMilliseconds = 1 * 60 * 60 * 1000; // 1 hora en milisegundos
-    
+      const oneHourInMilliseconds = 1 * 60 * 60 * 1000; 
+
       // Verificar si los datos filtrados son antiguos (más de 1 hora)
       if (currentTimestamp - storedTimestamp > oneHourInMilliseconds) {
         // Los datos filtrados son antiguos, eliminarlos y realizar un nuevo fetch
         localStorage.removeItem('filteredJobs');
+        setIsLoading(true)
         fetchJobData(); // Llama a fetchJobData para cargar nuevos datos
       }
     } else if (localStorageData) {
+
       setIsLoading(false); // Actualiza el estado isLoading a falso
     
       const parsedData = JSON.parse(localStorageData);
       const storedTimestamp = new Date(parsedData.timestamp);
       const currentTimestamp = new Date();
-    
+      
+
       // Verificar si ha pasado más de 6 horas y eliminar filteredJobs si es necesario
       if (currentTimestamp - storedTimestamp > 6 * 60 * 60 * 1000) {
-        localStorage.removeItem('filteredJobs');
+        localStorage.removeItem('jobData');
         setJobData(parsedData.data);
       } else {
         setJobData(parsedData.data);
@@ -87,11 +89,16 @@ function jobsCards() {
   if (isLoading) {
     const numberOfLoadingComponents = 6;
     return (
-      <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {Array.from({ length: numberOfLoadingComponents }, (_, index) => (
-          <LoadingComponent key={index} />
-        ))}
-      </ul>
+      <section>
+        <div role="status" class="text-center  animate-pulse ">
+          <p class="text-gray-500">Estamos buscando ofertas laborales en tiempo real porfavor espera pacientemente esto puede durar algunos minutos...</p>
+        </div>
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: numberOfLoadingComponents }, (_, index) => (
+              <LoadingComponent key={index} />
+            ))}
+          </ul>
+      </section>
     );
   }
 
