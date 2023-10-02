@@ -5,6 +5,7 @@ function FiltersSection() {
   const [selectedLocations, setSelectedLocations] = useState([]);
 
   const [publishers, setPublishers] = useState([]);
+  const [allJobs, setAllJobs] = useState([]);
   const [selectedPublishers, setSelectedpublishers] = useState([]);
   const [selectedLocationNames, setSelectedLocationNames] = useState([]);
   const [selectedPublisherNames, setSelectedPublisherNames] = useState([]);
@@ -53,7 +54,6 @@ function FiltersSection() {
       const parsedData = JSON.parse(localStorageData);
       if (parsedData.data && Array.isArray(parsedData.data)) {
         const jobData = parsedData.data;
-        
         const allLocations = jobData.map((job) => job.location);
         const allPublishers = jobData.map((job) => job.publisher);
 
@@ -85,6 +85,9 @@ function FiltersSection() {
           publisher,
           count: publisherCount[publisher],
         }));
+
+        const countallJobs = jobData.length
+        setAllJobs(countallJobs);
         
         setPublishers(publisherList);
         setLocations(locationList);
@@ -150,22 +153,33 @@ function FiltersSection() {
 
  if (locations.length === 0 || publishers.length === 0 ){
   return(
-    <div role="status" class="max-w-sm animate-pulse">
-      <div role="status" class="m-2 max-w-sm animate-pulse rounded-lg p-4 shadow dark:border-gray-200 md:p-3">
-        <div class="mb-2.5 h-10 rounded bg-gray-200 dark:bg-gray-700"></div>
-      </div>
-      <div role="status" class="m-2 max-w-sm animate-pulse rounded-lg p-4 shadow dark:border-gray-200 md:p-3">
-        <div class="mb-2.5 h-10 rounded bg-gray-200 dark:bg-gray-700"></div>
-      </div>
-      <div role="status" class="m-2 max-w-sm animate-pulse rounded-lg p-4 shadow dark:border-gray-200 md:p-3">
-        <div class="mb-2.5 h-10 rounded bg-gray-200 dark:bg-gray-700"></div>
-      </div>
-    </div>
+<div role="status" class="max-w-sm animate-pulse rounded-lg border-gray-200 p-4 md:p-6">
+  <div role="status" class="m-2 flex animate-pulse flex-col items-center rounded-lg p-4 dark:border-gray-700">
+    <div class="mb-2.5 h-10 w-10 rounded bg-gray-300 dark:bg-gray-700"></div>
+    <div class="h-4 w-20 rounded bg-gray-300 dark:bg-gray-700"></div>
+  </div>
+
+  <div role="status" class="m-2 max-w-sm animate-pulse rounded-lg p-4 dark:border-gray-200 md:p-3">
+    <div class="mb-2.5 h-10 rounded bg-gray-300 dark:bg-gray-700"></div>
+  </div>
+  <div role="status" class="m-2 max-w-sm animate-pulse rounded-lg p-4 dark:border-gray-200 md:p-3">
+    <div class="mb-2.5 h-10 rounded bg-gray-300 dark:bg-gray-700"></div>
+  </div>
+  <div role="status" class="m-2 max-w-sm animate-pulse rounded-lg p-4 dark:border-gray-200 md:p-3">
+    <div class="mb-2.5 h-10 rounded bg-gray-300 dark:bg-gray-700"></div>
+  </div>
+</div>
+
   )
  }
 
   return (
     <section>
+      <div class="flex flex-col rounded-lg  px-4 py-8 text-center">
+        <dd class="text-4xl font-extrabold  md:text-5xl dark:text-slate-200">{allJobs}</dd>
+        <dt class="order-last text-lg font-medium text-gray-500 dark:text-sky-400 ">Ofertas Disponibles</dt>
+
+      </div>
       <div className="space-y-2">
         <details className=" overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden  dark:bg-slate-900 dark:border-slate-200 ">
           <summary className="flex cursor-pointer items-center justify-between gap-2 bg-white p-4 text-gray-900  dark:bg-slate-900 ">
