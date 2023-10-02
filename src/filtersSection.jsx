@@ -240,7 +240,7 @@ function FiltersSection() {
         </details>
         <details className="overflow-hidden rounded border border-gray-300 ">
           <summary className="flex cursor-pointer items-center justify-center gap-2 bg-white text-gray-900 transition ">
-            <button className="p-4 text-sm font-medium w-full h-full hover:bg-gray-500 hover:text-white focus:outline-none focus:ring active:bg-indigo-500 dark:text-sky-400 dark:bg-slate-900 dark:hover:bg-slate-800" onClick={handleFetchData}>Filtrar</button>
+            <button className="p-4 text-sm font-medium w-full h-full hover:bg-gray-500 hover:text-white dark:text-sky-400 dark:bg-slate-900 dark:hover:bg-slate-800" onClick={handleFetchData}>Filtrar</button>
           </summary>
         </details>
 

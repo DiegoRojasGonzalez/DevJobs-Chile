@@ -129,7 +129,14 @@ function jobsCards() {
               <p class="max-w-[40ch] text-sm text-gray-500 dark:text-slate-400">{job.deatilsCut}</p>
             </div>
             <dl class="mt-6 flex gap-4 sm:gap-6">
-              
+
+            {job.publicationDate !== "" && (
+              <div class="flex flex-col">
+                <dd class="text-xs text-gray-500 dark:text-slate-400">Publicado</dd>
+                <dt class="text-sm font-medium text-gray-600  dark:text-sky-400 ">{job.publicationDate}</dt>
+              </div>
+            )}
+
             {job.expirationDate !== "" && (
               <div class="flex flex-col">
                 <dd class="text-xs text-gray-500 dark:text-slate-400">Termino postulacion</dd>
