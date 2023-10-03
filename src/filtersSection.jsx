@@ -158,7 +158,9 @@ function FiltersSection() {
   };
   
   const handleReloadWeb = () => {
-    localStorage.clear();
+    localStorage.removeItem('filteredJobs');
+    localStorage.removeItem('jobData');
+    localStorage.removeItem('timestampfiltered');
     window.location.reload();
   }
 
