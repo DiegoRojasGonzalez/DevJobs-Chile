@@ -1,7 +1,8 @@
 const express = require('express');
-//const fs = require('fs');
+const cors = require('cors'); // modulo CORS
 const scraper = require('./scrapingData'); // Importa las funciones de scraping desde scrapingData.js
 const app = express();
+app.use(cors());
 
 app.get('/scraped-data', async (req, res) => {
     try {
@@ -13,9 +14,6 @@ app.get('/scraped-data', async (req, res) => {
     }
 });
 
-app.get('/', (req, res) => {
-  res.send('¡Hola, mundo!');
-});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

@@ -1,7 +1,7 @@
 const puppeteer = require("puppeteer");
 
 async function scrapeLogic() {
-
+  
   async function scrapEmpleosPublicos() {
     const browser = await puppeteer.launch({
       headless: "new"
@@ -76,6 +76,7 @@ async function scrapeLogic() {
     }
 
   }
+  
   
   async function scrapEmpleosPublicos2() {
     const browser = await puppeteer.launch({
@@ -331,9 +332,11 @@ async function scrapLinkdin(){
   if ((scrapedData1 = await scrapEmpleosPublicos()) !== null) {
     addUniqueObjects(scrapedData1);
   }
+
   if ((scrapedData2 = await scrapEmpleosPublicos2()) !== null) {
     addUniqueObjects(scrapedData2);
   }
+
   if ((scrapedData3 = await scrapEmpleosPublicos3()) !== null) {
     addUniqueObjects(scrapedData3);
   }
@@ -342,6 +345,11 @@ async function scrapLinkdin(){
     addUniqueObjects(scrapedData4);
   }
   
+  console.log("DATA 2:",scrapedData2)
+  console.log("DATA 3:",scrapedData3)
+  console.log("DATA 4:",scrapedData4)
+
+
   function addUniqueObjects(dataArray) {
     dataArray.forEach((obj) => {
       const isDuplicate = dataEmpleosPublicos.some((existingObj) => {
