@@ -2,8 +2,9 @@ const express = require('express');
 const cors = require('cors'); // modulo CORS
 const scraper = require('./scrapingData'); // Importa las funciones de scraping desde scrapingData.js
 const app = express();
-app.use(cors());
-
+app.use(cors({
+  origin: 'https://diegorojasgonzalez.github.io', 
+}));
 app.get('/scraped-data', async (req, res) => {
     try {
       const scrapedData = await scraper.scrapeLogic(); // Usa scraper en lugar de scrapeLogic
