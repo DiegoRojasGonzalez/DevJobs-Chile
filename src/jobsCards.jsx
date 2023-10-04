@@ -21,8 +21,9 @@ function LoadingComponent() {
 
 
 function jobsCards() {
-  const [jobData, setJobData] = useState([]);
+  const [jobData, setJobData] = useState([]); // maneja data
   const [isLoading, setIsLoading] = useState(true); // Debe ser en minúsculas
+  const [error, setError] = useState(null); // manejar errores
 
   useEffect(() => {
     function fetchJobData() {
@@ -42,6 +43,8 @@ function jobsCards() {
         })
         .catch((error) => {
           console.error('Error al cargar datos:', error);
+          setError(error); // Guardar el error en el estado
+          setIsLoading(false); // Establecer isLoading en falso para que se muestre el mensaje de error
         });
     }
 
@@ -91,7 +94,7 @@ function jobsCards() {
     return (
       <section>
         <div role="status" class="text-center  animate-pulse ">
-          <p class="text-gray-500">Estamos buscando ofertas laborales en tiempo real porfavor espera pacientemente esto puede durar algunos minutos...</p>
+          <p class="text-gray-500 m-4">Estamos buscando ofertas laborales en tiempo real porfavor espera pacientemente esto puede durar algunos minutos...</p>
         </div>
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: numberOfLoadingComponents }, (_, index) => (
@@ -99,6 +102,19 @@ function jobsCards() {
             ))}
           </ul>
       </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <div class="grid place-content-center ">
+        <div class="text-center">
+          <h1 class="text-9xl font-black text-gray-200">404</h1>
+          <p class="mt-4 text-red-500">Hubo un error al cargar los datos. Por favor, intenta nuevamente.</p>
+
+        <button onClick={() => window.location.reload()} className="inline-block px-5 py-3 mt-6 text-sm font-medium text-black rounded hover:text-white hover:bg-gray-500  border border-gray-300 dark:text-sky-400 dark:bg-slate-900 dark:hover:bg-slate-800">Recargar</button>
+        </div>
+      </div>
     );
   }
 
@@ -112,12 +128,14 @@ function jobsCards() {
         <div class="grid place-content-center ">
           <div class="text-center">
             <h1 class="text-9xl font-black text-gray-200">404</h1>
-            <p class="mt-4 text-gray-500">Lo siento, no se encontraron coincidencias con los parámetros de filtro proporcionados. Por favor, revise los criterios de búsqueda y vuelva a intentarlo.</p>
+            <p class="mt-4 text-red-500">Lo siento, no se encontraron coincidencias con los parámetros de filtro proporcionados. Por favor, revise los criterios de búsqueda y vuelva a intentarlo.</p>
             <button onClick={handleClearLocalStorage} href="#" class="inline-block px-5 py-3 mt-6 text-sm font-medium text-black rounded hover:text-white hover:bg-gray-500  border border-gray-300 dark:text-sky-400 dark:bg-slate-900 dark:hover:bg-slate-800" >Mostrar todo</button>
           </div>
         </div>
     );
   }
+
+
   return (
     <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {jobData.map((job, index) => (
