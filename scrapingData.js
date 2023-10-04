@@ -346,7 +346,9 @@ async function scrapeLogic() {
             return lastLine;
           }
         });
-        const urlJob = await article.$eval('h2.fs18 a', (a) => a.getAttribute('href') || '');
+        const url = await article.$eval('h2.fs18 a', (a) => a.getAttribute('href') || '');
+        const urlJob = 'https://cl.computrabajo.com' + url;
+
         const publisher = 'https://cl.computrabajo.com';
         const details = await article.$eval('div.list_dot.mb5.mrB', (div) => div.textContent.trim().replace(/\s+/g, ' ') || '');
         const detailsCut = '';
@@ -413,7 +415,8 @@ async function scrapeLogic() {
             return lastLine;
           }
         });
-        const urlJob = await article.$eval('h2.fs18 a', (a) => a.getAttribute('href') || '');
+        const url = await article.$eval('h2.fs18 a', (a) => a.getAttribute('href') || '');
+        const urlJob = 'https://cl.computrabajo.com' + url;
         const publisher = 'https://cl.computrabajo.com';
         const details = await article.$eval('div.list_dot.mb5.mrB', (div) => div.textContent.trim().replace(/\s+/g, ' ') || '');
         const detailsCut = '';
@@ -489,6 +492,9 @@ async function scrapeLogic() {
   if ((scrapedData6 = await scrapCompuTrabajo2()) !== null) {
     addUniqueObjects(scrapedData6);
   }
+console.log("Data scraped4 : ",scrapedData4);
+console.log("Data scraped5 : ",scrapedData5);
+console.log("Data scraped6 : ",scrapedData6);
 
   function addUniqueObjects(dataArray) {
     dataArray.forEach((obj) => {
