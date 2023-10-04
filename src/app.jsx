@@ -37,7 +37,7 @@ function App() {
       <div className="mx-auto max-w-screen-xl px-4 8 sm:px-6 sm:py-12 lg:px-8">
       <header>
           <h1 className="text-xl font-bold text-gray-900 sm:text-3xl dark:text-slate-200 ">Developer Jobs in Chile</h1>
-          <p className="mt-4 max-w-md text-gray-500  dark:text-slate-400">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nulla autem soluta nam earum quidem, distinctio aut suscipit, ipsa laboriosam nemo deleniti dolores magni veniam. Architecto ullam ipsam officia molestias voluptates?</p>
+          <p className="mt-4 max-w-md text-gray-500  dark:text-slate-400">Dev jobs chile es una web que realiza scraping web en tiempo real con la intención de encontrar ofertas laborales de distintas páginas web en una sola. Así, los desarrolladores pueden acceder a las mejores oportunidades de trabajo sin tener que buscar en múltiples sitios.</p>
         </header>
 
         <div className="mt-8 block lg:hidden">
