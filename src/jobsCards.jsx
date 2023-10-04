@@ -27,7 +27,7 @@ function jobsCards() {
 
   useEffect(() => {
     function fetchJobData() {
-      axios.get('http://localhost:3000/scraped-data')
+      axios.get('https://devjobschileapi.onrender.com/scraped-data')
         .then((response) => {
           const newJobData = response.data;
           const currentTimestamp = new Date();
