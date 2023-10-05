@@ -451,7 +451,7 @@ async function scrapeLogic() {
     
   }
 
-/*
+*/
 
 
   function addUniqueObjects(dataArray) {
@@ -484,6 +484,7 @@ async function scrapeLogic() {
   if ((scrapedData4 = await scrapLinkdin()) !== null) {
     addUniqueObjects(scrapedData4);
   }
+/*
   
   if ((scrapedData5 = await scrapCompuTrabajo()) !== null) {
     addUniqueObjects(scrapedData5);
@@ -491,9 +492,7 @@ async function scrapeLogic() {
   if ((scrapedData6 = await scrapCompuTrabajo2()) !== null) {
     addUniqueObjects(scrapedData6);
   }
-console.log("Data scraped4 : ",scrapedData4);
-console.log("Data scraped5 : ",scrapedData5);
-console.log("Data scraped6 : ",scrapedData6);
+*/
 
   function addUniqueObjects(dataArray) {
     dataArray.forEach((obj) => {
