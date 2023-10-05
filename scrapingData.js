@@ -76,7 +76,7 @@ async function scrapeLogic() {
     }
 
   }
-  
+/*
   async function scrapEmpleosPublicos2() {
     const browser = await puppeteer.launch({
       headless: "new"
@@ -238,7 +238,7 @@ async function scrapeLogic() {
       return null;
     }
   }
-
+*/
   async function scrapLinkdin(){
       const browser = await puppeteer.launch({
         headless: "new"
@@ -473,7 +473,7 @@ async function scrapeLogic() {
   if ((scrapedData1 = await scrapEmpleosPublicos()) !== null) {
     addUniqueObjects(scrapedData1);
   }
-
+/*
   if ((scrapedData2 = await scrapEmpleosPublicos2()) !== null) {
     addUniqueObjects(scrapedData2);
   }
@@ -481,7 +481,7 @@ async function scrapeLogic() {
   if ((scrapedData3 = await scrapEmpleosPublicos3()) !== null) {
     addUniqueObjects(scrapedData3);
   }
-
+*/
   if ((scrapedData4 = await scrapLinkdin()) !== null) {
     addUniqueObjects(scrapedData4);
   }
