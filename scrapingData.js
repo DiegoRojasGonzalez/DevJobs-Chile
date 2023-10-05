@@ -322,7 +322,7 @@ async function scrapeLogic() {
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(60000);
     await page.goto("https://cl.computrabajo.com/trabajo-de-programador");  
-    const maxWaitTime = 30000;
+    const maxWaitTime = 60000;
 
     try {
       await Promise.race([
@@ -391,7 +391,7 @@ async function scrapeLogic() {
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(60000);
     await page.goto("https://cl.computrabajo.com/trabajo-de-programador?p=2");  
-    const maxWaitTime = 30000;
+    const maxWaitTime = 60000;
 
     try {
       await Promise.race([
