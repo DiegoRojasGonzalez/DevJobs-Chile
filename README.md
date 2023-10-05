@@ -70,9 +70,13 @@ Thank you for your interest in contributing to  DevJobs Chile! We appreciate you
 
 ## Related Documentation
 
- - [Angular documentation](https://angular.io/docs)
- - [Nodejs documentation](https://nodejs.org/en/docs)
- - [TypeScript documentation](https://www.typescriptlang.org/docs/)
+ - [React documentation](https://legacy.reactjs.org/docs/getting-started.html)
+ - [JavaScript documentation](https://developer.mozilla.org/es/docs/Web/JavaScript/Guide)
+ - [Vitejs documentation](https://vitejs.dev/guide/)
+ - [Tailwind documentation](https://v2.tailwindcss.com/docs)
+ - [Puppeter documentation](https://pptr.dev/)
+ - [Express documentation](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs)
+
 
 
 ## Authors
