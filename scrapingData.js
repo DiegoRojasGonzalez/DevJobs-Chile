@@ -312,7 +312,7 @@ async function scrapeLogic() {
       return null;
     }
   }
-
+/*
   async function scrapCompuTrabajo(){
   
     const browser = await puppeteer.launch({
@@ -333,7 +333,7 @@ async function scrapeLogic() {
       const articles = await page.$$('.box_offer');
 
       const articleData = [];
-  /** */
+
       for (const article of articles) {
         const name = await article.$eval('h2.fs18 a', (a) => a.textContent.trim() || '');
         let location = await article.$eval('p.fs16.fc_base.mt5.mb5', (p) => {
@@ -402,7 +402,6 @@ async function scrapeLogic() {
       const articles = await page.$$('.box_offer');
 
       const articleData = [];
-  /** */
       for (const article of articles) {
         const name = await article.$eval('h2.fs18 a', (a) => a.textContent.trim() || '');
         let location = await article.$eval('p.fs16.fc_base.mt5.mb5', (p) => {
@@ -452,7 +451,7 @@ async function scrapeLogic() {
     
   }
 
-
+/*
 
 
   function addUniqueObjects(dataArray) {
